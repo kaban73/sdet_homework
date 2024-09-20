@@ -5,10 +5,12 @@ abstract public class Car implements Moving {
     private final String brand;
     private final String type;
     private final double size;
+    private static int totalCarsCreated = 0;
     public Car(String brand, String type, double size) {
         this.brand = brand;
         this.type = type;
         this.size = size;
+        totalCarsCreated++;
     }
     protected String getBrand() {
         return brand;
@@ -18,5 +20,8 @@ abstract public class Car implements Moving {
     }
     protected double getSize() {
         return size;
+    }
+    public static int getTotalCarsCreated() {
+        return totalCarsCreated;
     }
 }

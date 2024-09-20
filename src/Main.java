@@ -1,20 +1,36 @@
 public class Main {
     public static void main(String[] args) {
-        MyCar mc = new MyCar(
+        MyCar myCar = new MyCar(
                 "VAZ2107",
                 "SEDAN",
-                1.6
+                1.6,
+                "Ivan"
         );
-        YourCar yc = new YourCar(
+        YourCar yourCar = new YourCar(
                 "VAZ21099",
                 "SEDAN",
-                1.8
+                1.8,
+                "Dmitriy"
         );
-        mc.infoAboutCar();
-        mc.go();
-        yc.go();
-        System.out.println(yc.getBrand());
-        System.out.println(mc.getBrand());
-        MyCar.IsThisCar();
+
+        myCar.lookAtMyCar();
+        myCar.infoAboutCar();
+        myCar.go();
+        myCar.stop();
+
+        yourCar.sayYourName();
+        yourCar.isThisYourName();
+        yourCar.drift();
+
+        System.out.println(Car.getTotalCarsCreated());
+
+        myCar.isThisYourCar(yourCar);
+        myCar.showTheDriverLicense();
+
+        yourCar.isThisYourCar(myCar);
+        yourCar.getOutOfTheCar();
+
+        Car.IsThisCar();
+
     }
 }
