@@ -13,6 +13,12 @@ public class Main {
         System.out.println("Please enter the password again");
         String confirmPassword = in.next();
 
+        /* Hardcore input for easy testing
+        String login = "user_1";
+        String password = "123";
+        String confirmPassword = "321";
+         */
+
         boolean isDataCorrect = Authorization.authorization(login, password, confirmPassword);
         System.out.println(isDataCorrect);
     }

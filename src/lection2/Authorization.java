@@ -5,41 +5,33 @@ public class Authorization {
         if (!password.equals(confirmPassword))
             throw new WrongPasswordException("Confirm password is not equal to the password");
     }
-    private static void isLengthPasswordCorrect(String password) throws WrongPasswordException {
-        if (password.length() > 20)
-            throw new WrongPasswordException("Password is too long");
-        else if (password.isEmpty())
-            throw new WrongPasswordException("Password can not be empty");
+    private static void isLengthCorrect(String login, String password) throws WrongLoginException, WrongPasswordException {
+        boolean isLengthLoginCorrect = login.length() < 20 && !login.isEmpty();
+        boolean isLengthPasswordCorrect = password.length() < 20 && !password.isEmpty();
+
+        if (!isLengthLoginCorrect)
+            throw new WrongLoginException("Length of login is incorrect");
+        if (!isLengthPasswordCorrect)
+            throw new WrongPasswordException("Length of password is incorrect");
     }
-    private static void arePasswordCharactersCorrect(String password) throws WrongPasswordException {
+    private static void areCharactersCorrect(String login, String password) throws WrongLoginException, WrongPasswordException {
         String regex = "^[a-zA-Z0-9_]+$";
-        if (!password.matches(regex))
+        boolean isLoginCorrect = login.matches(regex);
+        boolean isPasswordCorrect = password.matches(regex);
+
+        if (!isLoginCorrect)
+            throw new WrongLoginException("Login contains invalid characters");
+        if (!isPasswordCorrect)
             throw new WrongPasswordException("Password contains invalid characters");
     }
-    private static void isLengthLoginCorrect(String login) throws WrongLoginException{
-        if (login.length() > 20)
-            throw new WrongLoginException("Login is too long");
-        else if (login.isEmpty())
-            throw new WrongLoginException("Login can not be empty");
-    }
-    private static void areLoginCharactersCorrect(String login) throws WrongLoginException {
-        String regex = "^[a-zA-Z0-9_]+$";
-        if (!login.matches(regex))
-            throw new WrongLoginException("Login contains invalid characters");
-    }
-    private static void checkLogin(String login) throws WrongLoginException {
-        isLengthLoginCorrect(login);
-        areLoginCharactersCorrect(login);
-    }
-    private static void checkPasswords(String password, String confirmPasswords) throws WrongPasswordException {
-        isLengthPasswordCorrect(password);
-        arePasswordCharactersCorrect(password);
-        isConfirmPasswordEqualPassword(password, confirmPasswords);
+    private static void checkData(String login,String password, String confirmPassword) throws WrongLoginException, WrongPasswordException {
+        isLengthCorrect(login, password);
+        areCharactersCorrect(login, password);
+        isConfirmPasswordEqualPassword(password ,confirmPassword);
     }
     public static boolean authorization(String login, String password, String confirmPassword) {
         try {
-            checkLogin(login);
-            checkPasswords(password, confirmPassword);
+            checkData(login, password, confirmPassword);
             return true;
         } catch (WrongLoginException | WrongPasswordException e) {
             System.out.println(e.getMessage());
