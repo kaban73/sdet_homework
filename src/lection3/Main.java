@@ -51,9 +51,16 @@ public class Main {
         System.out.println(isIntegerDividedBy13.check(3));
         NumberCheck<Float> isFloatDividedBy13 = num -> num % 13 == 0;
         System.out.println(isFloatDividedBy13.check(13f));
+
+        GetDiscriminant<Float> floatDiscriminant = (a, b, c) -> b*b - 4*a*c;
+        System.out.println(floatDiscriminant.calculation(2f, 9f, 4f));
     }
     @FunctionalInterface
     interface NumberCheck<T extends Number> {
         boolean check(T num);
+    }
+    @FunctionalInterface
+    interface GetDiscriminant<T extends Float> {
+        T calculation(T a, T b, T c);
     }
 }
