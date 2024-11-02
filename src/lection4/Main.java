@@ -1,19 +1,24 @@
 package lection4;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Set<Student> students = new HashSet<>();
+        for (int i = 0; i < 20; i++) {
+            String name = "Student " + (i + 1);
+            String group = "Group " + (i % 3 + 1); // Группы 1, 2, 3
+            int course = (i % 4) + 1; // Курсы от 1 до 4
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+            Map<String, Integer> results = new HashMap<>();
+            results.put("Math", (int)(Math.random() * 5) + 1); // Случайная оценка от 1 до 100
+            results.put("Physics", (int)(Math.random() * 5) + 1);
+            results.put("Chemistry", (int)(Math.random() * 5) + 1);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+            students.add(new Student(name, group, course, results));
         }
     }
 }
