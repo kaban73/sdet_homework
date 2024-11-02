@@ -31,4 +31,7 @@ public class Student {
     public int getCourse() {
         return this.course;
     }
+    public String getName() {
+        return this.name;
+    }
 }

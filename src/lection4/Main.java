@@ -10,11 +10,11 @@ public class Main {
     private static void upCourseGoodStudent(Student student) {
         student.upCourse();
     }
-    private static List<Student> printStudents(Set<Student> students, int course) {
-        List<Student> listStudentsForCourse = new ArrayList<>();
+    private static List<String> printStudents(Set<Student> students, int course) {
+        List<String> listStudentsForCourse = new ArrayList<>();
         for (Student student : students) {
             if (student.getCourse() == course)
-                listStudentsForCourse.add(student);
+                listStudentsForCourse.add(student.getName());
         }
         return listStudentsForCourse;
     }
@@ -40,11 +40,11 @@ public class Main {
         }
         removeBadStudent(badStudents);
 
-        List<Student> students1 = printStudents(students, 1);
-        List<Student> students2 = printStudents(students, 2);
-        List<Student> students3 = printStudents(students, 3);
-        List<Student> students4 = printStudents(students, 4);
-        List<Student> students5 = printStudents(students, 5);
+        List<String> students1 = printStudents(students, 1);
+        List<String> students2 = printStudents(students, 2);
+        List<String> students3 = printStudents(students, 3);
+        List<String> students4 = printStudents(students, 4);
+        List<String> students5 = printStudents(students, 5);
         System.out.println(students1);
         System.out.println(students2);
         System.out.println(students3);
