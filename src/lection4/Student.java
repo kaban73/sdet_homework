@@ -25,4 +25,10 @@ public class Student {
         }
         return general / this.results.size();
     }
+    public void upCourse() {
+        this.course += 1;
+    }
+    public int getCourse() {
+        return this.course;
+    }
 }

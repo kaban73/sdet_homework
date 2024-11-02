@@ -1,16 +1,24 @@
 package lection4;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
-    private static void removeBadStudent(Set<Student> students) {
-        students.removeIf(student -> student.getAverageResults() < 3);
+    public static final Set<Student> students = new HashSet<>();
+    private static void removeBadStudent(Set<Student> badStudents) {
+        students.removeAll(badStudents);
+    }
+    private static void upCourseGoodStudent(Student student) {
+        student.upCourse();
+    }
+    private static List<Student> printStudents(Set<Student> students, int course) {
+        List<Student> listStudentsForCourse = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getCourse() == course)
+                listStudentsForCourse.add(student);
+        }
+        return listStudentsForCourse;
     }
     public static void main(String[] args) {
-        Set<Student> students = new HashSet<>();
         for (int i = 0; i < 20; i++) {
             String name = "Student " + (i + 1);
             String group = "Group " + (i % 3 + 1); // Группы 1, 2, 3
@@ -23,6 +31,24 @@ public class Main {
 
             students.add(new Student(name, group, course, results));
         }
-        removeBadStudent(students);
+        Set<Student> badStudents = new HashSet<>();
+        for (Student student : students) {
+            if (student.getAverageResults() < 3)
+                badStudents.add(student);
+            else
+                upCourseGoodStudent(student);
+        }
+        removeBadStudent(badStudents);
+
+        List<Student> students1 = printStudents(students, 1);
+        List<Student> students2 = printStudents(students, 2);
+        List<Student> students3 = printStudents(students, 3);
+        List<Student> students4 = printStudents(students, 4);
+        List<Student> students5 = printStudents(students, 5);
+        System.out.println(students1);
+        System.out.println(students2);
+        System.out.println(students3);
+        System.out.println(students4);
+        System.out.println(students5);
     }
 }
