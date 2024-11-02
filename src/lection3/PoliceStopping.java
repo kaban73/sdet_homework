@@ -1,4 +1,4 @@
-package lection1;
+package lection3;
 
 public interface PoliceStopping {
     void showTheDriverLicense();
