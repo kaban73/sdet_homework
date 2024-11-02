@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
+    private static void removeBadStudent(Set<Student> students) {
+        students.removeIf(student -> student.getAverageResults() < 3);
+    }
     public static void main(String[] args) {
         Set<Student> students = new HashSet<>();
         for (int i = 0; i < 20; i++) {
@@ -20,5 +23,6 @@ public class Main {
 
             students.add(new Student(name, group, course, results));
         }
+        removeBadStudent(students);
     }
 }

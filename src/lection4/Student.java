@@ -18,4 +18,11 @@ public class Student {
         this.course = course;
         this.results = results;
     }
+    public int getAverageResults() {
+        int general = 0;
+        for (int res : this.results.values()) {
+            general += res;
+        }
+        return general / this.results.size();
+    }
 }
