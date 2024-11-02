@@ -46,5 +46,14 @@ public class Main {
          *  Поэтому для примера я создал два гаража только для определенных типов
          *  И еще один гараж, который может вмещать в себя все что угодно, как и в реальной жизни в общем)
          */
+
+        NumberCheck<Integer> isIntegerDividedBy13 = num -> num % 13 == 0;
+        System.out.println(isIntegerDividedBy13.check(3));
+        NumberCheck<Float> isFloatDividedBy13 = num -> num % 13 == 0;
+        System.out.println(isFloatDividedBy13.check(13f));
+    }
+    @FunctionalInterface
+    interface NumberCheck<T extends Number> {
+        boolean check(T num);
     }
 }
