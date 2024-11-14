@@ -16,7 +16,7 @@ public class Main {
     }
     private static void upCourseGoodStudent() {
         students.stream()
-                .filter(student -> (student.getAverageResults() > 3))
+                .filter(student -> (student.getAverageResults() >= 3))
                 .forEach(student -> {
                     student.upCourse();
                 });
@@ -25,7 +25,7 @@ public class Main {
         System.out.println(
                 students.stream()
                         .filter(student -> student.getCourse() == course)
-                        .map(Student::getName)
+                        .map(student -> student.getName() + " - " + student.getAverageResults())
                         .toList()
         );
     }
@@ -42,7 +42,12 @@ public class Main {
 
             students.add(new Student(name, group, course, results));
         }
-
+        printStudents(1);
+        printStudents(2);
+        printStudents(3);
+        printStudents(4);
+        printStudents(5);
+        System.out.println("---------------------------------------");
         removeBadStudent();
         upCourseGoodStudent();
         printStudents(1);
