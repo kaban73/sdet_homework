@@ -1,22 +1,33 @@
 package lection4;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static final Set<Student> students = new HashSet<>();
-    private static void removeBadStudent(Set<Student> badStudents) {
+    private static void removeBadStudent() {
+        /* Можно выбрать более короткий вариант, но для практики с потоками был написан код ниже.
+        students.removeIf(student -> student.getAverageResults() < 3);
+         */
+        Set<Student> badStudents = students.stream()
+                .filter(student -> (student.getAverageResults() < 3))
+                .collect(Collectors.toSet());
         students.removeAll(badStudents);
     }
-    private static void upCourseGoodStudent(Student student) {
-        student.upCourse();
+    private static void upCourseGoodStudent() {
+        students.stream()
+                .filter(student -> (student.getAverageResults() > 3))
+                .forEach(student -> {
+                    student.upCourse();
+                });
     }
-    private static List<String> printStudents(Set<Student> students, int course) {
-        List<String> listStudentsForCourse = new ArrayList<>();
-        for (Student student : students) {
-            if (student.getCourse() == course)
-                listStudentsForCourse.add(student.getName());
-        }
-        return listStudentsForCourse;
+    private static void printStudents(int course) {
+        System.out.println(
+                students.stream()
+                        .filter(student -> student.getCourse() == course)
+                        .map(Student::getName)
+                        .toList()
+        );
     }
     public static void main(String[] args) {
         for (int i = 0; i < 20; i++) {
@@ -31,24 +42,13 @@ public class Main {
 
             students.add(new Student(name, group, course, results));
         }
-        Set<Student> badStudents = new HashSet<>();
-        for (Student student : students) {
-            if (student.getAverageResults() < 3)
-                badStudents.add(student);
-            else
-                upCourseGoodStudent(student);
-        }
-        removeBadStudent(badStudents);
 
-        List<String> students1 = printStudents(students, 1);
-        List<String> students2 = printStudents(students, 2);
-        List<String> students3 = printStudents(students, 3);
-        List<String> students4 = printStudents(students, 4);
-        List<String> students5 = printStudents(students, 5);
-        System.out.println(students1);
-        System.out.println(students2);
-        System.out.println(students3);
-        System.out.println(students4);
-        System.out.println(students5);
+        removeBadStudent();
+        upCourseGoodStudent();
+        printStudents(1);
+        printStudents(2);
+        printStudents(3);
+        printStudents(4);
+        printStudents(5);
     }
 }
