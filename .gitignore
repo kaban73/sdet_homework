@@ -1,5 +1,6 @@
 sdet_homework.iml
 .idea
+maven_project/target/
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
