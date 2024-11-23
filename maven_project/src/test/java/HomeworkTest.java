@@ -49,8 +49,11 @@ public class HomeworkTest {
     private static final String CHANGE_LANG_BTN_TEXT = "Продолжить на русском";
     private static final String INPUT_ID = "sign-in-phone-number";
     private static final String INPUT_NUMBER = "79876886998";
+    private static final String INPUT_ARGENTINA_NUMBER = "543511234567";
     private static final String INPUT_WRONG_NUMBER = "99999999999999";
     private static final String INVALID_PHONE_NUMBER = "Invalid phone number.";
+    private static final String NEXT_BTN_ENG = "Next";
+    private static final String NEXT_BTN_RUS = "Далее";
 
     public void init_changeLang_logInByPhone() {
         SelenideElement h1_element = $(By.cssSelector("h1"));
@@ -87,7 +90,7 @@ public class HomeworkTest {
         input.type(INPUT_NUMBER);
 
         next_button = $(By.cssSelector("button[type=\"submit\"]"));
-        next_button.shouldBe(visible);
+        next_button.shouldBe(visible).shouldBe(text(NEXT_BTN_RUS));
         next_button.click();
 
         $x("//*[@id=\"monkey\"]").shouldBe(visible);
@@ -109,12 +112,48 @@ public class HomeworkTest {
         input.type(INPUT_WRONG_NUMBER);
 
         next_button = $(By.cssSelector("button[type=\"submit\"]"));
-        next_button.shouldBe(visible);
+        next_button.shouldBe(visible).shouldBe(text(NEXT_BTN_RUS));
         next_button.click();
 
         $(By.xpath("//label[@for=\"sign-in-phone-number\"]"))
                 .shouldBe(visible)
                 .shouldBe(text(INVALID_PHONE_NUMBER));
+        sleep(1500);
+    }
+
+    @Test(groups = "homework")
+    public void test_auth_success_change_country() {
+        open(Configuration.baseUrl);
+
+        SelenideElement h1_element = $(By.cssSelector("h1"));
+        SelenideElement logInButton = $x("//button[text()='" + LOG_IN_ENG + "']");
+
+        h1_element
+                .shouldBe(visible)
+                .shouldHave(text(H1_ENG));
+        logInButton
+                .shouldBe(visible)
+                .click();
+
+        SelenideElement countryList = $(By.id("sign-in-phone-code"));
+        SelenideElement input = $(By.id(INPUT_ID));
+        SelenideElement next_button = $(By.cssSelector("button[type=\"submit\"]"));
+
+        countryList.shouldBe(visible).click();
+        SelenideElement argentinaItem = $x("//span[text()='Argentina']");
+        argentinaItem.click();
+
+        input.shouldBe(visible).click();
+        next_button.shouldNotBe(exist);
+
+        input.type(INPUT_ARGENTINA_NUMBER);
+
+        next_button = $(By.cssSelector("button[type=\"submit\"]"));
+        next_button.shouldBe(visible).shouldBe(text(NEXT_BTN_ENG));
+        next_button.click();
+
+        sleep(5000);
+        $x("//*[@id=\"monkey\"]").shouldBe(visible);
         sleep(1500);
     }
 }
