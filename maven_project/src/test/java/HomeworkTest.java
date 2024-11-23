@@ -49,11 +49,10 @@ public class HomeworkTest {
     private static final String CHANGE_LANG_BTN_TEXT = "Продолжить на русском";
     private static final String INPUT_ID = "sign-in-phone-number";
     private static final String INPUT_NUMBER = "79876886998";
+    private static final String INPUT_WRONG_NUMBER = "99999999999999";
+    private static final String INVALID_PHONE_NUMBER = "Invalid phone number.";
 
-    @Test(groups = "homework")
-    public void test_auth_success() {
-        open(Configuration.baseUrl);
-
+    public void init_changeLang_logInByPhone() {
         SelenideElement h1_element = $(By.cssSelector("h1"));
         SelenideElement logInButton = $x("//button[text()='" + LOG_IN_ENG + "']");
         SelenideElement changeLangButton = $x("//button[text()='" + CHANGE_LANG_BTN_TEXT + "']");
@@ -71,6 +70,13 @@ public class HomeworkTest {
         logInButton.
                 shouldBe(visible)
                 .click();
+    }
+
+    @Test(groups = "homework")
+    public void test_auth_success() {
+        open(Configuration.baseUrl);
+
+        init_changeLang_logInByPhone();
 
         SelenideElement input = $(By.id(INPUT_ID));
         SelenideElement next_button = $(By.cssSelector("button[type=\"submit\"]"));
@@ -85,6 +91,30 @@ public class HomeworkTest {
         next_button.click();
 
         $x("//*[@id=\"monkey\"]").shouldBe(visible);
+        sleep(1500);
+    }
+
+    @Test(groups = "homework")
+    public void test_auth_unsuccess() {
+        open(Configuration.baseUrl);
+
+        init_changeLang_logInByPhone();
+
+        SelenideElement input = $(By.id(INPUT_ID));
+        SelenideElement next_button = $(By.cssSelector("button[type=\"submit\"]"));
+
+        input.shouldBe(visible).click();
+        next_button.shouldNotBe(exist);
+
+        input.type(INPUT_WRONG_NUMBER);
+
+        next_button = $(By.cssSelector("button[type=\"submit\"]"));
+        next_button.shouldBe(visible);
+        next_button.click();
+
+        $(By.xpath("//label[@for=\"sign-in-phone-number\"]"))
+                .shouldBe(visible)
+                .shouldBe(text(INVALID_PHONE_NUMBER));
         sleep(1500);
     }
 }
