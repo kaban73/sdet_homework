@@ -2,6 +2,8 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -9,6 +11,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class HomeworkTest {
+    private static final Logger logger = LoggerFactory.getLogger(HomeworkTest.class);
 
     @BeforeClass
     public void init() {
@@ -95,6 +98,7 @@ public class HomeworkTest {
 
         $x("//*[@id=\"monkey\"]").shouldBe(visible);
         sleep(1500);
+        logger.info("test_auth_success() completed successfully");
     }
 
     @Test(groups = "homework")
@@ -119,6 +123,7 @@ public class HomeworkTest {
                 .shouldBe(visible)
                 .shouldBe(text(INVALID_PHONE_NUMBER));
         sleep(1500);
+        logger.info("test_auth_unsuccess() completed successfully");
     }
 
     @Test(groups = "homework")
@@ -155,5 +160,6 @@ public class HomeworkTest {
         sleep(5000);
         $x("//*[@id=\"monkey\"]").shouldBe(visible);
         sleep(1500);
+        logger.info("test_auth_success_change_country() completed successfully");
     }
 }
