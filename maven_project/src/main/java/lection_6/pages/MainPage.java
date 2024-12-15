@@ -1,8 +1,8 @@
 package lection_6.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import lection_6.FeedbackModal;
-import lection_6.NavSubBox;
+import lection_6.elements.FeedbackModal;
+import lection_6.elements.NavSubBox;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.Condition.visible;

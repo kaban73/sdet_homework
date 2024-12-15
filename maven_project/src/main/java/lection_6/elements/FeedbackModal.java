@@ -1,4 +1,4 @@
-package lection_6;
+package lection_6.elements;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
