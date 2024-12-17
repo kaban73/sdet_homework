@@ -1,4 +1,5 @@
 sdet_homework.iml
+maven_project/build
 .idea
 maven_project/target/
 maven_project/allure-results

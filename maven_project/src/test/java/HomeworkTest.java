@@ -1,4 +1,3 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -59,21 +58,21 @@ public class HomeworkTest {
     private static final String NEXT_BTN_RUS = "Далее";
 
     public void init_changeLang_logInByPhone() {
-        SelenideElement h1_element = $(By.cssSelector("h1"));
-        SelenideElement logInButton = $x("//button[text()='" + LOG_IN_ENG + "']");
+        SelenideElement h1Element = $(By.cssSelector("h1"));
+        SelenideElement logInButtonEng = $x("//button[text()='" + LOG_IN_ENG + "']");
+        SelenideElement logInButtonRus = $x("//button[text()='" + LOG_IN_RUS + "']");
         SelenideElement changeLangButton = $x("//button[text()='" + CHANGE_LANG_BTN_TEXT + "']");
 
-        h1_element
+        h1Element
                 .shouldBe(visible)
                 .shouldHave(text(H1_ENG));
-        logInButton.shouldBe(visible);
+        logInButtonEng.shouldBe(visible);
         changeLangButton.shouldBe(visible);
 
         changeLangButton.click();
 
-        h1_element.shouldHave(text(H1_RUS));
-        logInButton = $x("//button[text()='" + LOG_IN_RUS + "']");
-        logInButton.
+        h1Element.shouldHave(text(H1_RUS));
+        logInButtonRus.
                 shouldBe(visible)
                 .click();
     }
@@ -85,16 +84,16 @@ public class HomeworkTest {
         init_changeLang_logInByPhone();
 
         SelenideElement input = $(By.id(INPUT_ID));
-        SelenideElement next_button = $(By.cssSelector("button[type=\"submit\"]"));
+        SelenideElement nextButton = $(By.cssSelector("button[type=\"submit\"]"));
 
         input.shouldBe(visible).click();
-        next_button.shouldNotBe(exist);
+        nextButton.shouldNotBe(exist);
 
         input.type(INPUT_NUMBER);
 
-        next_button = $(By.cssSelector("button[type=\"submit\"]"));
-        next_button.shouldBe(visible).shouldBe(text(NEXT_BTN_RUS));
-        next_button.click();
+        nextButton = $(By.cssSelector("button[type=\"submit\"]"));
+        nextButton.shouldBe(visible).shouldBe(text(NEXT_BTN_RUS));
+        nextButton.click();
 
         $x("//*[@id=\"monkey\"]").shouldBe(visible);
         sleep(1500);
@@ -108,16 +107,16 @@ public class HomeworkTest {
         init_changeLang_logInByPhone();
 
         SelenideElement input = $(By.id(INPUT_ID));
-        SelenideElement next_button = $(By.cssSelector("button[type=\"submit\"]"));
+        SelenideElement nextButton = $(By.cssSelector("button[type=\"submit\"]"));
 
         input.shouldBe(visible).click();
-        next_button.shouldNotBe(exist);
+        nextButton.shouldNotBe(exist);
 
         input.type(INPUT_WRONG_NUMBER);
 
-        next_button = $(By.cssSelector("button[type=\"submit\"]"));
-        next_button.shouldBe(visible).shouldBe(text(NEXT_BTN_RUS));
-        next_button.click();
+        nextButton = $(By.cssSelector("button[type=\"submit\"]"));
+        nextButton.shouldBe(visible).shouldBe(text(NEXT_BTN_RUS));
+        nextButton.click();
 
         $(By.xpath("//label[@for=\"sign-in-phone-number\"]"))
                 .shouldBe(visible)
@@ -130,10 +129,10 @@ public class HomeworkTest {
     public void test_auth_success_change_country() {
         open(Configuration.baseUrl);
 
-        SelenideElement h1_element = $(By.cssSelector("h1"));
+        SelenideElement h1Element = $(By.cssSelector("h1"));
         SelenideElement logInButton = $x("//button[text()='" + LOG_IN_ENG + "']");
 
-        h1_element
+        h1Element
                 .shouldBe(visible)
                 .shouldHave(text(H1_ENG));
         logInButton
@@ -142,20 +141,20 @@ public class HomeworkTest {
 
         SelenideElement countryList = $(By.id("sign-in-phone-code"));
         SelenideElement input = $(By.id(INPUT_ID));
-        SelenideElement next_button = $(By.cssSelector("button[type=\"submit\"]"));
+        SelenideElement nextButton = $(By.cssSelector("button[type=\"submit\"]"));
 
         countryList.shouldBe(visible).click();
         SelenideElement argentinaItem = $x("//span[text()='Argentina']");
         argentinaItem.click();
 
         input.shouldBe(visible).click();
-        next_button.shouldNotBe(exist);
+        nextButton.shouldNotBe(exist);
 
         input.type(INPUT_ARGENTINA_NUMBER);
 
-        next_button = $(By.cssSelector("button[type=\"submit\"]"));
-        next_button.shouldBe(visible).shouldBe(text(NEXT_BTN_ENG));
-        next_button.click();
+        nextButton = $(By.cssSelector("button[type=\"submit\"]"));
+        nextButton.shouldBe(visible).shouldBe(text(NEXT_BTN_ENG));
+        nextButton.click();
 
         sleep(5000);
         $x("//*[@id=\"monkey\"]").shouldBe(visible);
