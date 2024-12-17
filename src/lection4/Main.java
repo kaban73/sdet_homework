@@ -6,9 +6,6 @@ import java.util.stream.Collectors;
 public class Main {
     public static final Set<Student> students = new HashSet<>();
     private static void removeBadStudent() {
-        /* Можно выбрать более короткий вариант, но для практики с потоками был написан код ниже.
-        students.removeIf(student -> student.getAverageResults() < 3);
-         */
         Set<Student> badStudents = students.stream()
                 .filter(student -> (student.getAverageResults() < 3))
                 .collect(Collectors.toSet());
