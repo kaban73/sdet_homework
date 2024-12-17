@@ -13,14 +13,12 @@ public class FeedbackModal {
     @FindBy(xpath = FEEDBACK_MODAL + "//input[@name='form_text_72']")
     private SelenideElement inputNameOrOrganization;
     @Step("Проверить, что модальное окно видимо")
-    private FeedbackModal checkModalWindowVisible() {
+    public FeedbackModal checkModalWindowVisible() {
         feedbackWindow.shouldBe(visible);
         return this;
     }
     @Step("Проверить, что поле для ввода \"Имя или организация\" видимо")
     public FeedbackModal checkInputNameOrOrganization() {
-        checkInputNameOrOrganization();
-
         inputNameOrOrganization.shouldBe(visible);
         return this;
     }

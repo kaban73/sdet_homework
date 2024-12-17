@@ -16,18 +16,33 @@ public class SimbirSoftTest extends BaseTest {
     @Test(description = "Show and check feedbackModel")
     public void show_and_check_feedbackModel() {
         page(new MainPage())
+                .checkMainPage()
                 .checkNavBar()
-                .showFeedbackModal()
+                .openFeedbackModal()
+                .checkModalWindowVisible()
                 .checkInputNameOrOrganization();
         sleep(3000);
     }
-    @Test(description = "hover navSub and go to Contacts")
+    @Test(description = "hover navSubAbout and go to ContactsPage")
     public void open_contactsPage() {
         page(new MainPage())
+                .checkMainPage()
                 .checkNavBar()
-                .openNavSubBox()
+                .openNavSubBoxAbout()
+                .navSubBoxIsVisible()
                 .clickSubLinkContacts();
         sleep(3000);
+    }
+
+    @Test(description = "hover navSubCareer and go to CareerPage")
+    public void open_careerPage() {
+        page(new MainPage())
+                .checkMainPage()
+                .checkNavBar()
+                .openNavSubBoxCareer()
+                .navSubBoxCareerIsVisible()
+                .clickSubLinkCareer()
+                .checkCareerPage();
     }
 
     @Test(description = "Create Person test")

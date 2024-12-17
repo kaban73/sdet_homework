@@ -11,7 +11,6 @@ public class NavBar {
     private static final String NAV_BAR_LOGO = "//div[@class=\"is-wrapper-a\"]//div[@class=\"gh-logo\"]";
     private static final String NAV_BAR_NAV = "//div[@class=\"is-wrapper-a\"]//div[@class=\"gh-nav\"]";
     private static final String NAV_BAR_TOOLS = "//div[@class=\"is-wrapper-a\"]//div[@class=\"gh-tools\"]";
-
     @FindBy(xpath = NAV_BAR_LOGO)
     private SelenideElement navBarLogo;
     @FindBy(xpath = NAV_BAR_NAV + "//a[@href=\"/portfolio/\"]")
@@ -35,19 +34,27 @@ public class NavBar {
     private SelenideElement navToolsFeedback;
 
     @Step("Проверить, что кнопка \"Написать нам\" видима и нажать на нее")
-    public FeedbackModal showFeedbackModal() {
+    public FeedbackModal openFeedbackModal() {
         navToolsFeedback
                 .shouldBe(visible)
                 .click();
         return page(FeedbackModal.class);
     }
 
-    @Step("Проверить, что навигационный элемент \"О нас\" видим и навестись на него")
-    public NavSubBoxAbout openNavSubBox() {
+    @Step("Проверить, что навигационный элемент \"О нас\" виден и навестись на него")
+    public NavSubBoxAbout openNavSubBoxAbout() {
         navItemAbout
                 .shouldBe(visible)
                 .hover();
         return page(NavSubBoxAbout.class);
+    }
+
+    @Step("Проверить, что навигационный элемент \"Карьера\" виден и навестись на него")
+    public NavSubBoxCareer openNavSubBoxCareer() {
+        navItemCareer
+                .shouldBe(visible)
+                .hover();
+        return page(NavSubBoxCareer.class);
     }
 
 }
