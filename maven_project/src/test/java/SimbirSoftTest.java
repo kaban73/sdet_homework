@@ -1,5 +1,6 @@
 import com.codeborne.selenide.Configuration;
 import lection_6.dao.Person;
+import lection_6.pages.CareerPage;
 import lection_6.pages.MainPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -43,6 +44,14 @@ public class SimbirSoftTest extends BaseTest {
                 .navSubBoxCareerIsVisible()
                 .clickSubLinkCareer()
                 .checkCareerPage();
+    }
+    @Test(description = "open careerPage and click to accordionItemFirst")
+    public void click_and_check_text_accordionItemFirst() {
+        open_careerPage();
+        page(new CareerPage())
+                .checkCareerPage()
+                .scrollToAccordionItemFirst()
+                .clickAccordionItemFirst();
     }
 
     @Test(description = "Create Person test")
