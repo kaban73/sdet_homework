@@ -1,19 +1,33 @@
 package lection_7;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Main {
+
+    private static Connection connection;
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        try {
+            connect();
+            System.out.println("Connection is opened");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            disconnect();
+            System.out.println("Connection is closed");
+        }
+    }
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+    private static void connect() throws SQLException {
+        connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+    }
+    private static void disconnect() {
+        try {
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
