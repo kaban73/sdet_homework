@@ -56,6 +56,12 @@ public class MyDB {
     public void deleteCarForCostLess(int cost) throws SQLException {
         statement.executeUpdate("DELETE FROM cars WHERE cost < "+cost+";");
     }
+    public void updateCarCostForModel(String model, int newCost) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE cars SET cost =  ? WHERE model = ?");
+        preparedStatement.setString(2, model);
+        preparedStatement.setInt(1, newCost);
+        preparedStatement.executeUpdate();
+    }
     public void deleteCarForCostMore(int cost) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM cars WHERE cost > ?");
         preparedStatement.setInt(1, cost);

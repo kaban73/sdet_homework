@@ -21,6 +21,7 @@ public class Main {
             db.deleteCarForModelEx("LADA NIVA");
             db.deleteCarForCostLess(70000);
             db.deleteCarForCostMore(1500000);
+            db.updateCarCostForModel("VAZ-2111", 150000);
             db.readEx();
 
         } catch (SQLException e) {
