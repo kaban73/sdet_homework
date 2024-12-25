@@ -1,91 +1,33 @@
 package lection_7;
 
-import java.sql.*;
+import java.sql.SQLException;
 
 public class Main {
-    private static Connection connection;
-    private static Statement statement;
+    private static final MyDB db = new MyDB("cars");
     public static void main(String[] args) {
         try {
-            connect();
-            readEx();
+            db.connect();
+
+            db.createTableEx();
+            db.readEx();
+
+            db.insertCarEx("VAZ-2107", 50000);
+            db.insertCarEx("VAZ-2111", 100000);
+            db.insertCarEx("LADA VESTA", 500000);
+            db.insertCarEx("LADA NIVA", 1000000);
+            db.insertCarEx("LAND CRUISER", 2000000);
+            db.readEx();
+
+            db.deleteCarForModelEx("LADA NIVA");
+            db.deleteCarForCostLess(70000);
+            db.deleteCarForCostMore(1500000);
+            db.readEx();
+
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
-            System.out.println("Connection is closed");
+            throw new RuntimeException(e);
         }
-    }
-
-    private static void connect() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
-        statement = connection.createStatement();
-    }
-    private static void disconnect() {
-        try {
-            if (connection != null) {
-                statement.close();
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void createTableEx() throws SQLException {
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS students (\n" +
-                " id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                " name TEXT,\n" +
-                " score INTEGER\n" +
-                " );");
-    }
-
-    private static void dropTableEx() throws SQLException {
-        statement.executeUpdate("DROP TABLE IF EXISTS students;");
-    }
-
-    private static void readEx() throws SQLException {
-        try (ResultSet rs = statement.executeQuery("SELECT * FROM students;")) {
-            while (rs.next()) {
-                System.out.println(rs.getInt(1) + " " + rs.getString("name") + " " +
-                        rs.getInt(3));
-            }
-        }
-    }
-
-    private static void clearTableEx() throws SQLException {
-        statement.executeUpdate("DELETE FROM students;");
-    }
-
-    private static void deleteStudentForNameEx(String name) throws SQLException {
-        statement.executeUpdate("DELETE FROM students WHERE name = '"+name+"';");
-    }
-
-    private static void insertStudentEx(String name, int score) throws SQLException {
-        statement.executeUpdate("INSERT INTO students (name,score) VALUES ('"+name+"', "+score+");");
-    }
-
-    private static void psBatchEx() {
-        try (PreparedStatement prepInsert = connection.prepareStatement("INSERT INTO students(name,score) VALUES(?,?)")) {
-            for (int i = 1; i <= 10; i++) {
-                prepInsert.setString(1, "Bob" + i);
-                prepInsert.setInt(2, i * 10 % 100);
-                prepInsert.addBatch();
-            }
-            prepInsert.executeBatch();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void transactionEx() throws SQLException {
-        connection.setAutoCommit(false);
-        try {
-            statement.execute("INSERT INTO students (name, score) values ('Walentin', 56)");
-            connection.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            connection.rollback();
+        finally {
+            db.disconnect();
         }
     }
 
