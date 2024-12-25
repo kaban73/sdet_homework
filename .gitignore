@@ -1,5 +1,8 @@
+maven_project/build
 sdet_homework.iml
 .idea
+maven_project/target/
+maven_project/allure-results
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
