@@ -1,4 +1,4 @@
-package lection1;
+package lection3;
 
 abstract public class Car implements Moving {
     public static void IsThisCar() {
